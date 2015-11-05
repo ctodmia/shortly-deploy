@@ -6,13 +6,11 @@ module.exports = function(grunt) {
       //
       dist: {
         src: [
-          'public/client/**/*.js',
-          'app/**/*.js',
           'lib/**/*.js',
           'server.js',
           'server-config.js'
         ],
-        dest: 'build/production.js'
+        dest: 'build1/production.js'
       }
     },
 
@@ -33,8 +31,8 @@ module.exports = function(grunt) {
 
     uglify: {
       build: {
-        src: 'build/production.js',
-        dest: 'build/production.min.js' 
+        src: 'build1/production.js',
+        dest: 'build1/production.min.js' 
       }
       //
     },
@@ -43,11 +41,10 @@ module.exports = function(grunt) {
       files: [
         // Add filespec list here
         'Gruntfile.js',
-        'public/client/**/*.js',
-        'app/**/*.js',
         'lib/**/*.js',
         'server.js',
-        'server-config.js'
+        'server-config.js',
+        'builds/**/*.js'
       ],
       options: {
         force: 'true',
@@ -111,7 +108,7 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
-  grunt.registerTask('default', ['concat', 'uglify']); //
+  grunt.registerTask('default', ['concat', 'uglify', 'jshint']); //
   grunt.registerTask('test', [
     'mochaTest'
   ]);
@@ -122,6 +119,7 @@ module.exports = function(grunt) {
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
       // add your production server task here
+      
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
@@ -129,6 +127,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
       // add your production server task here
+    'concat', 'uglify', 'jshint'
+
   ]);
 
 
